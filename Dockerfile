@@ -14,7 +14,15 @@ RUN export TZ=Europe/Paris && \
 
 RUN apt-get -y install awscli
 
+# Azure
 RUN curl -sL https://aka.ms/InstallAzureCLIDeb | bash
+
+# RUN mkdir -p /etc/apt/keyrings && \
+#     curl -sLS https://packages.microsoft.com/keys/microsoft.asc | \
+#     gpg --dearmor -o /etc/apt/keyrings/microsoft.gpg && \
+#     chmod go+r /etc/apt/keyrings/microsoft.gpg
+
+# RUN apt-get update && apt-get install azure-cli=2.58.0-1-$(lsb_release -cs)
 
 # GCP
 RUN echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | \
@@ -23,10 +31,10 @@ RUN echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.
 RUN curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | \
     apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
 
-RUN apt-get update && apt-get -y install google-cloud-cli
+RUN apt-get update && apt-get -y install google-cloud-cli=470.0.0-0
 
 # OCI
 
-RUN bash -c "$(curl -L https://raw.githubusercontent.com/oracle/oci-cli/master/scripts/install/install.sh)" -- --accept-all-defaults
+RUN bash -c "$(curl -L https://raw.githubusercontent.com/oracle/oci-cli/v3.28.2/scripts/install/install.sh)" -- --accept-all-defaults
 
-RUN pip install hdns_cli
+RUN pip install hdns_cli==1.0.0
