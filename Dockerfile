@@ -6,13 +6,13 @@ RUN apt-get update
 
 RUN apt-get -y install ca-certificates curl apt-transport-https lsb-release gnupg python3-pip python3-venv jq
 
-RUN apt-get -y install hcloud-cli
+RUN apt-get -y install hcloud-cli=1.13.0-2build2
 
 # first answer https://unix.stackexchange.com/questions/433942/how-to-specify-extra-tz-info-for-apt-get-install-y-awscli
 RUN export TZ=Europe/Paris && \
     ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-RUN apt-get -y install awscli
+RUN apt-get -y install awscli=1.22.34-1
 
 # Azure
 RUN curl -sL https://aka.ms/InstallAzureCLIDeb | bash
