@@ -4,7 +4,7 @@ WORKDIR /cloud_report
 
 RUN apt-get update
 
-RUN apt-get -y install ca-certificates curl apt-transport-https lsb-release gnupg python3-pip python3-venv
+RUN apt-get -y install ca-certificates curl apt-transport-https lsb-release gnupg python3-pip python3-venv jq
 
 RUN apt-get -y install hcloud-cli
 
