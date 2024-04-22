@@ -15,14 +15,17 @@ RUN export TZ=Europe/Paris && \
 RUN apt-get -y install awscli=1.22.34-1
 
 # Azure
-RUN curl -sL https://aka.ms/InstallAzureCLIDeb | bash
+RUN mkdir -p /etc/apt/keyrings
 
-# RUN mkdir -p /etc/apt/keyrings && \
-#     curl -sLS https://packages.microsoft.com/keys/microsoft.asc | \
-#     gpg --dearmor -o /etc/apt/keyrings/microsoft.gpg && \
-#     chmod go+r /etc/apt/keyrings/microsoft.gpg
+RUN curl -sLS https://packages.microsoft.com/keys/microsoft.asc | \
+    gpg --dearmor -o /etc/apt/keyrings/microsoft.gpg
 
-# RUN apt-get update && apt-get install azure-cli=2.58.0-1-$(lsb_release -cs)
+RUN chmod go+r /etc/apt/keyrings/microsoft.gpg
+
+RUN echo "deb [arch=$(dpkg --print-architecture), signed-by=/etc/apt/keyrings/microsoft.gpg] https://packages.microsoft.com/repos/azure-cli/ $(lsb_release -cs) main" | \
+    tee /etc/apt/sources.list.d/azure-cli.list
+
+RUN apt-get update && apt-get install azure-cli=2.59.0-1~$(lsb_release -cs)
 
 # GCP
 RUN echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | \
