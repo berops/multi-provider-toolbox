@@ -38,6 +38,6 @@ RUN apt-get update && apt-get -y install google-cloud-cli=470.0.0-0
 
 # OCI
 
-RUN bash -c "$(curl -L https://raw.githubusercontent.com/oracle/oci-cli/v3.28.2/scripts/install/install.sh)" -- --accept-all-defaults
+RUN bash -c "$(curl -L https://raw.githubusercontent.com/oracle/oci-cli/v3.39.1/scripts/install/install.sh)" -- --accept-all-defaults
 
 RUN pip install hdns_cli==1.0.0
