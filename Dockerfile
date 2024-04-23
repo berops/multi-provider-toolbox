@@ -4,15 +4,13 @@ WORKDIR /cloud_report
 
 RUN apt-get update
 
-RUN apt-get -y install ca-certificates curl apt-transport-https lsb-release gnupg python3-pip python3-venv jq
+RUN apt-get -y install ca-certificates curl apt-transport-https lsb-release gnupg python3-pip python3-venv jq unzip
 
 RUN apt-get -y install hcloud-cli=1.13.0-2build2
 
-# first answer https://unix.stackexchange.com/questions/433942/how-to-specify-extra-tz-info-for-apt-get-install-y-awscli
-RUN export TZ=Europe/Paris && \
-    ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
-
-RUN apt-get -y install awscli=1.22.34-1
+# AWS
+RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64-2.11.26.zip" -o "awscliv2.zip"
+RUN unzip awscliv2.zip && rm awscliv2.zip && ./aws/install --bin-dir /usr/local/bin --install-dir /usr/local/aws-cli --update
 
 # Azure
 RUN mkdir -p /etc/apt/keyrings
@@ -37,7 +35,7 @@ RUN curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | \
 RUN apt-get update && apt-get -y install google-cloud-cli=470.0.0-0
 
 # OCI
-
-RUN bash -c "$(curl -L https://raw.githubusercontent.com/oracle/oci-cli/v3.39.1/scripts/install/install.sh)" -- --accept-all-defaults
+RUN bash -c "$(curl -L https://raw.githubusercontent.com/oracle/oci-cli/v3.39.1/scripts/install/install.sh)" \
+    -- --accept-all-defaults --oci-cli-version 3.39.1
 
 RUN pip install hdns_cli==1.0.0
