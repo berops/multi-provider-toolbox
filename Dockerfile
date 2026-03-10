@@ -6,7 +6,8 @@ RUN apt-get update
 
 RUN apt-get -y install ca-certificates curl apt-transport-https lsb-release gnupg python3-pip python3-venv jq unzip
 
-RUN apt-get -y install hcloud-cli=1.13.0-2build2
+RUN curl -L "https://github.com/hetznercloud/cli/releases/download/v1.61.0/hcloud-linux-amd64.tar.gz" -o "hcloud.tar.gz"
+RUN tar -xzf hcloud.tar.gz && rm hcloud.tar.gz  && mv hcloud /usr/local/bin/ && sudo chmod +x /usr/local/bin/hcloud
 
 # AWS
 RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64-2.11.26.zip" -o "awscliv2.zip"
@@ -37,5 +38,3 @@ RUN apt-get update && apt-get -y install google-cloud-cli=470.0.0-0
 # OCI
 RUN bash -c "$(curl -L https://raw.githubusercontent.com/oracle/oci-cli/v3.39.1/scripts/install/install.sh)" \
     -- --accept-all-defaults --oci-cli-version 3.39.1
-
-RUN pip install hdns_cli==1.0.0
