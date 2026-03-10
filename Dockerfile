@@ -7,7 +7,7 @@ RUN apt-get update
 RUN apt-get -y install ca-certificates curl apt-transport-https lsb-release gnupg python3-pip python3-venv jq unzip
 
 RUN curl -L "https://github.com/hetznercloud/cli/releases/download/v1.61.0/hcloud-linux-amd64.tar.gz" -o "hcloud.tar.gz"
-RUN tar -xzf hcloud.tar.gz && rm hcloud.tar.gz  && mv hcloud /usr/local/bin/ && sudo chmod +x /usr/local/bin/hcloud
+RUN tar -xzf hcloud.tar.gz && rm hcloud.tar.gz  && mv hcloud /usr/local/bin/ && chmod +x /usr/local/bin/hcloud
 
 # AWS
 RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64-2.11.26.zip" -o "awscliv2.zip"
